@@ -1,0 +1,77 @@
+plugins {
+    id 'java'
+	id 'jacoco'
+	id 'application'
+	id 'com.github.johnrengelman.shadow' version '6.0.0'
+}
+
+mainClassName = 'panda.metricbot.Bot'
+version '1.0'
+sourceCompatibility = 1.16
+
+repositories {
+	maven {
+		name 'm2-dv8tion'
+		url 'https://m2.dv8tion.net/releases'
+	}
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+	testImplementation "org.mockito:mockito-core:3.+"
+
+	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+
+	implementation 'net.dv8tion:JDA:4.3.0_348'
+	implementation platform('com.amazonaws:aws-java-sdk-bom:1.11.1000')
+	implementation 'com.amazonaws:aws-java-sdk-s3'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jacoco {
+	toolVersion '0.8.7'
+}
+
+tasks.withType(Test) {
+	jacoco.includeNoLocationClasses = true
+	jacoco.excludes = ['jdk.internal.*', 'panda.metricbot.exceptions.*']
+}
+
+tasks.create(name: "testCoverage", type: JacocoReport, dependsOn: "test") {
+
+	group = "Reporting"
+	description = "Generate Jacoco coverage reports for the test build."
+
+	reports {
+		html.enabled = true
+		xml.enabled = true
+	}
+
+	def excludes = [
+			'**/*Test*.*',
+			'**/actions/*.*',
+			'**/core/*.*',
+			'**/markers/*.*',
+			'**/services/**/*.*',
+			'**/toolwindow/*.*',
+			'**/utils/*.*',
+			'**/exceptions/*.*',
+			'**/Bot.*'
+	]
+
+	def javaClasses = fileTree(dir: "${buildDir}/classes/java/main", excludes: excludes)
+	classDirectories.from = files([javaClasses])
+
+	sourceDirectories.from = files([
+			"$project.projectDir/src/main/java",
+			"$buildDir/generated/source/kapt/test"
+	])
+
+	executionData.from = files("${project.buildDir}/jacoco/test.exec")
+}
+
+compileJava.options.encoding = 'UTF-8'

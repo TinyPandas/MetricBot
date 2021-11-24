@@ -1,21 +1,28 @@
-name: ci
+name: Measure coverage - Java 16
 
-on: [push, pull_request]
+on:
+  pull_request:
 
 jobs:
-  ci:
+  build:
     runs-on: ubuntu-latest
-    if: "!contains(github.event.head_commit.message, '[skip-ci]')"
     steps:
-      - name: Checkout Git repository
-        uses: actions/checkout@v2
-      - name: Install Node.js
-        uses: actions/setup-node@v2
+      - uses: actions/checkout@v2
+      - name: Set up JDK 1.16
+        uses: actions/setup-java@v1
         with:
-          node-version: "16"
-      - name: Install Node.js dependencies
-        run: npm ci
-      - name: Build project
-        run: npm run build
-      - name: Lint project
-        run: npm run lint
+          java-version: 1.16
+      - name: Run Coverage
+        run: |
+          chmod +x gradlew
+          ./gradlew testCoverage
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+
+      - name: Add coverage to PR
+        id: jacoco
+        uses: madrapps/jacoco-report@v1.2
+        with:
+          paths: ${{ github.workspace }}/build/reports/jacoco/testCoverage/testCoverage.xml
+          token: ${{ secrets.GITHUB_TOKEN }}
+          min-coverage-overall: 80
