@@ -19,7 +19,9 @@ repositories {
 
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+	testImplementation "org.mockito:mockito-core:3.+"
+
+	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 
 	implementation 'net.dv8tion:JDA:4.3.0_348'
 }
@@ -35,24 +37,6 @@ jacoco {
 tasks.withType(Test) {
 	jacoco.includeNoLocationClasses = true
 	jacoco.excludes = ['jdk.internal.*', 'panda.metricbot.exceptions.*']
-}
-
-jacocoTestCoverageVerification {
-	violationRules {
-		rule {
-			element = 'CLASS'
-			limit {
-				counter = 'LINE'
-				value = 'COVEREDRATIO'
-				minimum = 0.8
-			}
-			excludes = [
-					'com.cicd.herokuautodeploy.model.*',
-					'com.cicd.herokuautodeploy.HerokuautodeployApplication',
-					'com.cicd.herokuautodeploy.it.*'
-			]
-		}
-	}
 }
 
 tasks.create(name: "testCoverage", type: JacocoReport, dependsOn: "test") {
@@ -73,7 +57,8 @@ tasks.create(name: "testCoverage", type: JacocoReport, dependsOn: "test") {
 			'**/services/**/*.*',
 			'**/toolwindow/*.*',
 			'**/utils/*.*',
-			'src/main/java/panda/metricbot/exceptions/*.*'
+			'**/exceptions/*.*',
+			'**/Bot.*'
 	]
 
 	def javaClasses = fileTree(dir: "${buildDir}/classes/java/main", excludes: excludes)

@@ -16,6 +16,8 @@ jobs:
         run: |
           chmod +x gradlew
           ./gradlew testCoverage
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
 
       - name: Add coverage to PR
         id: jacoco
