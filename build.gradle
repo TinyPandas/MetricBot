@@ -51,7 +51,7 @@ jacoco {
 
 tasks.withType(Test) {
 	jacoco.includeNoLocationClasses = true
-	jacoco.excludes = ['jdk.internal.*', 'panda.metricbot.exceptions.*']
+	jacoco.excludes = ['jdk.internal.*', 'panda.metricbot.exceptions.*', 'panda.metricbot.Bot']
 }
 
 tasks.create(name: "testCoverage", type: JacocoReport, dependsOn: "test") {
