@@ -18,18 +18,31 @@ repositories {
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
-	testImplementation "org.mockito:mockito-core:3.+"
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+	testImplementation "org.mockito:mockito-core:4.+"
 
-	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 
 	implementation 'net.dv8tion:JDA:4.3.0_348'
-	implementation platform('com.amazonaws:aws-java-sdk-bom:1.11.1000')
+	implementation platform('com.amazonaws:aws-java-sdk-bom:1.12.111')
 	implementation 'com.amazonaws:aws-java-sdk-s3'
 }
 
 test {
     useJUnitPlatform()
+	finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+	dependsOn test
+	sourceSets sourceSets.main
+	executionData fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec")
+	reports {
+		xml.enabled false
+		csv.enabled true
+		html.destination file("${buildDir}/reports/jacoco/jacoco.html")
+		csv.destination file("${buildDir}/reports/jacoco/jacoco.csv")
+	}
 }
 
 jacoco {

@@ -1,17 +1,12 @@
 package panda.metricbot.activities;
 
 import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.JDABuilder;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import panda.metricbot.exceptions.InvalidTokenException;
 
 import javax.security.auth.login.LoginException;
 
-import java.util.Collections;
-
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
 
 class BotActivityTest {
     @Test

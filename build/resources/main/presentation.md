@@ -1,6 +1,11 @@
 ### Presentation
 
-<br>Presentation will be handled automatically on a set frequency of daily, weekly or monthly. A user can request metrics with a specific data, or date range. If the date requested is older than 120 days, and the server has opted into archiving, then the user will receive the monthly metrics for that date.
+<br>Presentation will be handled automatically on a set frequency of daily, weekly or monthly. A user can request 
+metrics with a specific data, or date range. If the date requested is older than 120 days, and the server has opted 
+into archiving, then the user will receive the monthly metrics for that date.
+<br><br>Metrics will also display a percentage display representing change. If custom range is provided, the percentage
+will reflect from the range to current data. If not range is provided, then percentage will reflect from previous 
+measurement to current measurements. (e.g. last week vs current metrics.)
 
 ### Metrics to Display
 
