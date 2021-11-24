@@ -1,5 +1,2 @@
-*.tsbuildinfo
-/.nyc_output/
-/coverage/
-/node_modules/
-/lib/
+.gradle/
+build
