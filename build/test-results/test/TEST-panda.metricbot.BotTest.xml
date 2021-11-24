@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="panda.metricbot.BotTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-11-24T02:54:24" hostname="DESKTOP-MQQ2FP9" time="0.58">
+<testsuite name="panda.metricbot.BotTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-11-24T04:38:11" hostname="DESKTOP-MQQ2FP9" time="0.971">
   <properties/>
-  <testcase name="constructor_invalidToken_throwsInvalidTokenException()" classname="panda.metricbot.BotTest" time="0.58"/>
+  <testcase name="constructor_invalidToken_throwsInvalidTokenException()" classname="panda.metricbot.BotTest" time="0.971"/>
   <system-out><![CDATA[Failed to login with provided token.
 ]]></system-out>
   <system-err><![CDATA[SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
